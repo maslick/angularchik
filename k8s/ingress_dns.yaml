@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: k8s-angularchik
+  labels:
+    maintainer: maslick
+    project: angularchik
+    app: angularchik
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: angularchik.maslick.ru
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: angularchik
+              servicePort: 8080

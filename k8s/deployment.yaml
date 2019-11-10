@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angularchik
+  labels:
+    maintainer: maslick
+    project: angularchik
+    app: angularchik
+spec:
+  ports:
+    - port: 8080
+      targetPort: http
+  selector:
+    maintainer: maslick
+    project: angularchik
+    app: angularchik
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angularchik
+  labels:
+    maintainer: maslick
+    project: angularchik
+    app: angularchik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      maintainer: maslick
+      project: angularchik
+      app: angularchik
+  template:
+    metadata:
+      name: angularchik
+      labels:
+        maintainer: maslick
+        project: angularchik
+        app: angularchik
+    spec:
+      containers:
+        - image: maslick/angularchik
+          imagePullPolicy: Always
+          name: angularchik
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              cpu: 100m
+              memory: 512Mi
+          env:
+            - name: URL
+              value: 'maslick.io'
+            - name: USER
+              value: 'maslick'
+            - name: KEY
+              value: '12345'

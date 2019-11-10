@@ -1,27 +1,45 @@
-# Angularchik
+# angular-chik
+runtime-configurable static angular web-app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
+[![image size](https://img.shields.io/badge/image%20size-49MB-blue.svg)](https://hub.docker.com/r/maslick/angularchik)
 
-## Development server
+## Docker multistage build
+[Here](docker/Dockerfile) I'm using ``node:12`` image as build image and ``nginx:stable`` as runtime image. This reduces image size from ~500MB to 50MB (zipped).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Build yourself:
+```zsh
+docker build -t angularchik -f docker/Dockerfile .
+docker image prune --filter label=stage=intermediate -f
+docker run -d \
+   -e URL=maslick.io \
+   -e USER=test \
+   -e KEY=54321 \
+   -p 8081:8080 \
+   angularchik:latest
+open http://`docker-machine ip`:8081
+```
 
-## Code scaffolding
+* Download from Dockerhub: 
+```zsh
+docker run -d \
+   -e URL=maslick.ru \
+   -e USER=test \
+   -e KEY=12345 \
+   -p 8082:8080 \
+   maslick/angularchik:latest
+open http://`docker-machine ip`:8082
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Kubernetes
+```
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/ingress_dns.yaml
+```
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Update environment settings:
+```
+k set env deployment/angularchik \
+   URL=www.yandex.ru \
+   USER=maslick \
+   KEY=987654321
+```
