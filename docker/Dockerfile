@@ -1,4 +1,4 @@
-FROM node:12 as builder
+FROM node:12-alpine as builder
 LABEL stage=intermediate
 COPY . /tmp
 WORKDIR /tmp
@@ -14,7 +14,7 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/site.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /tmp/dist/angularchik ./
-COPY --from=builder /tmp/substitute_env_variables.sh ./entrypoint.sh
+COPY --from=builder /tmp/docker/substitute_env_variables.sh ./entrypoint.sh
 
 RUN touch /var/run/nginx.pid && \
     chown -R www-data:root /var/run/nginx.pid && \

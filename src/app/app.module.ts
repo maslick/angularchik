@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { XyzComponent } from './xyz/xyz.component';
-import { HelloworldComponent } from './helloworld/helloworld.component';
+import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    XyzComponent,
-    HelloworldComponent
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { runtimeEnvironment } from "@env/runtimeEnvironment";
 
 @Component({
-  selector: 'app-helloworld',
-  templateUrl: './helloworld.component.html',
-  styleUrls: ['./helloworld.component.scss']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
-export class HelloworldComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 
   url = "";
   user = "";

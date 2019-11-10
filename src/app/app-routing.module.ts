@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HelloworldComponent } from './helloworld/helloworld.component'
-import { XyzComponent } from './xyz/xyz.component'
+import { SettingsComponent } from './settings/settings.component'
+import { HomeComponent } from './home/home.component'
 
 
 const routes: Routes = [
-  { path: '', component: XyzComponent },
-  { path: 'settings', component: HelloworldComponent }
+  { path: '', component: HomeComponent },
+  { path: 'settings', component: SettingsComponent }
 ];
 
 @NgModule({
