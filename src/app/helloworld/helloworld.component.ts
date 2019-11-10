@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { runtimeEnvironment } from "@env/runtimeEnvironment";
 
 @Component({
   selector: 'app-helloworld',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloworldComponent implements OnInit {
 
+  url = "";
+  user = "";
+  apiKey = "";
+
   constructor() { }
 
   ngOnInit() {
+    this.url = runtimeEnvironment.backendUrl;
+    this.user = runtimeEnvironment.user;
+    this.apiKey = runtimeEnvironment.key;
   }
 
 }
