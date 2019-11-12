@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { runtimeEnvironment } from "@env/runtimeEnvironment";
+import { runtimeEnvironment } from '@env/runtimeEnvironment';
 
 @Component({
   selector: 'app-settings',
@@ -8,9 +8,9 @@ import { runtimeEnvironment } from "@env/runtimeEnvironment";
 })
 export class SettingsComponent implements OnInit {
 
-  url = "";
-  user = "";
-  apiKey = "";
+  url = '';
+  user = '';
+  apiKey = '';
 
   constructor() { }
 
