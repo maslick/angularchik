@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { runtimeEnvironment } from '@env/runtimeEnvironment';
+import { runtimeEnvironment } from '@env/environment.runtime';
 
 @Component({
   selector: 'app-settings',

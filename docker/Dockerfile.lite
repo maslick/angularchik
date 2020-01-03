@@ -1,19 +1,18 @@
-FROM node:12-alpine as builder
+FROM scratch as builder
 LABEL stage=intermediate
-COPY . /tmp
+COPY ./test /tmp/test
+COPY ./docker /tmp/docker
 WORKDIR /tmp
-RUN npm install && npm run build
 
 
 FROM nginx:stable
-
 RUN adduser www-data root
 WORKDIR /var/www
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/site.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=builder /tmp/dist/angularchik ./
+COPY --from=builder /tmp/test ./
 COPY --from=builder /tmp/docker/variables.ini ./
 COPY --from=builder /tmp/docker/substitute_env_variables.sh ./entrypoint.sh
 

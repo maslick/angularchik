@@ -43,3 +43,41 @@ k set env deployment/angularchik \
    USER=maslick \
    KEY=987654321
 ```
+
+## Use in your projects
+* Add env variable names to variables.ini, e.g.:
+```zsh
+$ cat docker/variables.ini
+URL
+USER
+KEY
+```
+
+* Add this code snippet to your main index.html (put in to ``<header></header>``):
+```html
+<script>
+  window.ENV = {
+      backendUrl: "${URL}",
+      user: "${USER}",
+      key: "${KEY}"
+  };
+</script>
+``` 
+
+* Add an environment file:
+```zsh
+$ cat src/environments/runtimeEnvironment.ts
+declare var ENV;
+
+export const runtimeEnvironment = {
+  backendUrl: ENV.backendUrl === '${URL}' ? 'www.google.com' : ENV.backendUrl,
+  user: ENV.user === '${USER}' ? 'user' : ENV.user,
+  key: ENV.key === '${KEY}' ? '12345' : ENV.key
+};
+```
+
+* Use the injected env vars in your code (see [settings.component.ts](src/app/settings/settings.component.ts) for a complete example):
+```typescript
+import { runtimeEnvironment } from '@env/environment.runtime';
+console.log(runtimeEnvironment.backendUrl);
+```

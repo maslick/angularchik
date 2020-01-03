@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing</title>
+    <script>
+      window.ENV = {
+        backendUrl: "${URL}",
+        user: "${USER}",
+        key: "${KEY}"
+      };
+    </script>
+</head>
+<body>
+  <div id="envs"></div>
+</body>
+
+<script>
+  let element = document.getElementById("envs");
+  element.innerHTML += `<p>backendURL: ${window.ENV.backendUrl}</p>`;
+  element.innerHTML += `<p>USER: ${window.ENV.user}</p>`;
+  element.innerHTML += `<p>KEY: ${window.ENV.key}</p>`;
+</script>
+</html>
